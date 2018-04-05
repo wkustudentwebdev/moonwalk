@@ -13,6 +13,9 @@ const models = require('./db/models');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// route call-in
+const userRoutes = require('./routes/user');
+
 // middleware
 app.use(logger(process.env.MORGAN_ENV));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,7 +23,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
-// routes
+// routing middleware
+app.use('/user', userRoutes);
+
+// test route
 app.get('/', (req, res) => {
   res.json({
     success: true,
@@ -32,23 +38,20 @@ app.get('/', (req, res) => {
 // test database connection then start server
 models.sequelize.authenticate()
   .then(() => {
-    
     console.log('Database connection successful!');
-    
+
     models.sequelize.sync()
       .then(() => {
-        
         console.log('Models sync\'d successfully!');
-        
+
         app.listen(port, () => {
           console.log(`Server started on port ${port}!`);
         });
-      
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
-      })
+      });
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
   });
