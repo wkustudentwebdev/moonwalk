@@ -27,4 +27,28 @@ router.get('/', (req, res) => {
     });
 });
 
+router.post('/', (req, res) => {
+  UserController.addUser(req.body)
+    .then((data) => {
+      res.json({
+        meta: {
+          status: 201,
+          error: false,
+          time: Date.now(),
+        },
+        data,
+      });
+    })
+    .catch((err) => {
+      res.json({
+        meta: {
+          status: err.statusCode,
+          error: true,
+          time: Date.now(),
+        },
+        err,
+      });
+    });
+});
+
 module.exports = router;
