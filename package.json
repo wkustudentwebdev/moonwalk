@@ -4,6 +4,10 @@
   "description": "The backend for the Walk to the Moon project",
   "main": "app.js",
   "license": "Apache-2.0",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon"
+  },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",

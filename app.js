@@ -7,15 +7,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const logger = require('morgan');
-const Sequelize = require('sequelize');
+const models = require('./db/models');
 
 // global vars
 const app = express();
 const port = process.env.PORT || 3000;
-const sequelize = new Sequelize('DATABASE', 'USERNAME', 'PASSWORD', {
-  dialect: 'mysql',
-  operatorsAliases: false
-});
 
 // middleware
 app.use(logger(process.env.MORGAN_ENV));
@@ -34,12 +30,12 @@ app.get('/', (req, res) => {
 });
 
 // test database connection then start server
-sequelize.authenticate()
+models.sequelize.authenticate()
   .then(() => {
     
     console.log('Database connection successful!');
     
-    sequelize.sync()
+    models.sequelize.sync()
       .then(() => {
         
         console.log('Models sync\'d successfully!');
