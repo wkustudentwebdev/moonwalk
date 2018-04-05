@@ -9,6 +9,6 @@ PORT = 3000
 ```
 Then, run either `yarn` or `npm install`
 
-To run the server, use the command `.\node_modules\.bin\nodemon`
+To run the server, use the command `npm run dev` for development or `npm start` for production
 
 Then, open your browser to `localhost:3000` to see a JSON Hello World response.
