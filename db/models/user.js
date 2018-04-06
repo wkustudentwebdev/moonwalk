@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isDate: true,
-        isAfter: '1900-08-04'
-      }
+        isAfter: '1900-08-04',
+      },
     },
     gender: {
       type: DataTypes.ENUM('M', 'F', 'O'),
@@ -33,28 +33,28 @@ module.exports = (sequelize, DataTypes) => {
     },
     preferredMeasure: {
       type: DataTypes.ENUM('MI', 'KM'),
-      defaultValue: 'MI', 
+      defaultValue: 'MI',
     },
   }, {
     getterMethods: {
       age() {
-        let year = 1000*60*60*24*365;
-        let difference = Date.now() - Date.parse(this.birthDate);
+        const year = 1000 * 60 * 60 * 24 * 365;
+        const difference = Date.now() - Date.parse(this.birthDate);
         return Math.floor(difference / year);
-      }
+      },
     },
     indexes: [
       {
         unique: true,
         fields: ['email'],
-      }
+      },
     ],
   });
   User.associate = (models) => {
     User.hasMany(models.Exercise, {
       as: 'userID',
       foreignKey: 'userID',
-    })
+    });
   };
   return User;
 };
